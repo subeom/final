@@ -32,8 +32,8 @@ before do
 end
 
 get "/" do
-    view "home"
     view "login_form"
+    view "home"
 end
 
 get "/login" do
