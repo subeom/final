@@ -1,1 +1,34 @@
 list_view.erb
+
+<H1>Shopping List<H1>
+<H3><%= @message %></H3>
+
+<br>
+<a href="/add/item" class="btn btn-primary">Add Item</a>
+<br>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Detail</th>
+      <th scope="col">Chain</th>
+      <th scope="col">Created by</th>
+      <th scope="col">Created at</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for item in @items_created %>
+    <tr>
+      <th scope="row"><%= item[:id] %></th>
+      <td><%= item[:item_name] %></td>
+      <td><%= item[:detail] %></td>
+      <td><%= item[:chain_id] %>: <%= item[:chain_name] %></td>
+      <td><%= item[:created_by] %>: <%= item[:user_name] %></td>
+      <td><%= item[:created_at] %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+

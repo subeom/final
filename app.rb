@@ -15,6 +15,9 @@ before { puts; puts "--------------- NEW REQUEST ---------------"; puts }       
 after { puts; }                                                                       #
 #######################################################################################
 
+require 'securerandom'
+#SecureRandom.uuid # => "96b0a57c-d9ae-453f-b56f-3b154eb10cda"
+
 # heroku login
 # git remote add heroku https://git.heroku.com/calm-stream-67688.git
 
@@ -25,8 +28,7 @@ users_table = DB.from(:users)
 
 before do
     # SELECT * FROM users WHERE id = session[:user_id]
-    @current_user = users_table.where(:id => session[:user_id]).to_a[0]
-    puts @current_user.inspect
+    @current_user = users_table.where(:id => session[:user_id]).first
 end
 
 get "/" do
@@ -45,53 +47,75 @@ get "/login" do
     end
 end
 
-get "/login/action" do
-    puts params
+post "/login/action" do
     email_entered = params["email"]
     password_entered = params["password"]
-    # SELECT * FROM users WHERE email = email_entered
-    user = users_table.where(:email => email_entered).to_a[0]
-    if user
-        puts user.inspect
-        # test the password against the one in the users table
-        if user[:password] == password_entered
-            session[:user_id] = user[:id]
-            view "login_success"
-        else
-            view "login_fail"
-        end
-    else 
-        view "create_login_failed"
-    end
-end
-
-get "/signup" do
-    view "signup_form"
-end
-
-post "/signup/action" do
-    encrypted_password = BCrypt::Password.create(params["password"])
 
     @error_message = nil
 
-    if users_table.where(email: params["email"]).first
-        @error_message = "The email address, #{params["email"]}, already exists."
-        view "signup_fail"        
-    else
-        users_table.insert(:user_name => params["name"],
-                        :email => params["email"],
-                        :password => encrypted_password)
-
-        user = users_table.where(email: params["email"], password: encrypted_password).select(:email).first
-
-        if user
-            @email_signed_up = user[:email]
-            puts @email_signed_up.inspect
-            view "signup_success"
+    # SELECT * FROM users WHERE email = email_entered
+    user = users_table.where(:email => email_entered).first
+    if user
+        # test the password against the one in the users table
+        if BCrypt::Password.new(user[:password]) == password_entered
+            session[:user_id] = user[:id]
+            @current_user = user
+            view "home"
         else
-            @error_message = "Unknown error occurred. Please try to sign up later."
-            view "signup_fail"
+            @error_message = "Incorrect Password."
+            view "login_fail"
         end
+    else 
+        @error_message = "User #{params["email"]} does not exist."
+        view "login_fail"
+    end
+end
+
+# Logout
+get "/logout" do
+    session[:user_id] = nil
+    view "logout"
+end
+
+get "/signup" do
+    if @current_user
+        @error_message = "You are currently logged in with email address #{@current_user[:email]}. Please log out first."
+        view "signup_fail"
+    else
+        view "signup_form"
+    end
+end
+
+post "/signup/action" do
+    if uuid_check params["uuid"]
+        encrypted_password = BCrypt::Password.create(params["password"])
+
+        @error_message = nil
+
+        if params["name"] == "" || params["email"] == "" || params["password"] == ""
+            @error_message = "At least one of the required fields is empty."
+            view "signup_fail"        
+        elsif users_table.where(email: params["email"]).first
+            @error_message = "The email address, #{params["email"]}, already exists."
+            view "signup_fail"        
+        else
+            users_table.insert(:user_name => params["name"],
+                            :email => params["email"],
+                            :password => encrypted_password)
+
+            user = users_table.where(email: params["email"], password: encrypted_password).select(:email).first
+
+            if user
+                @email_signed_up = user[:email]
+                view "signup_success"
+            else
+                @error_message = "Unknown error occurred. Please try to sign up later."
+                view "signup_fail"
+            end
+        end
+    else
+        @error_message = "Don't refresh your page."
+        view "signup_fail"
     end
 end
 
@@ -104,11 +128,48 @@ get "/list/map" do
 end
 
 get "/add/item" do
+    @chains = DB.from(:chains)
     view "add_item_form"
 end
 
-get "/add/item/action" do
-    view "list_view"
+post "/add/item/action" do
+    @error_message = nil
+    @message = nil
+
+    if uuid_check params["uuid"]
+        if params["item_name"] == "" || params["detail"] == ""
+            @error_message = "At least one of the required fields is empty."
+            view "add_item_fail"        
+        else
+            items_table = DB.from(:items)
+
+            #DB.create_table :items do
+            #  primary_key :id
+            #  String :item_name, null: false
+            #  String :detail, null: false
+            #  foreign_key :chain_id, :chains, null: false
+            #  foreign_key :created_by, :users, null: false
+            #  Timestamp :created_at, default: Sequel::CURRENT_TIMESTAMP, null: false
+            #  foreign_key :status_id, :status, default: 1, null: false
+            #  foreign_key :status_changed_by, :users, null: false
+            #  Timestamp :status_changed_at, default: Sequel::CURRENT_TIMESTAMP, null: false
+            #end
+
+            items_table.insert(:item_name => params["item_name"],
+                            :detail => params["detail"],
+                            :chain_id => params["chain_id"],
+                            :created_by => session[:user_id],
+                            :status_changed_by => session[:user_id])
+
+            @message = "Item #{ params["item_name"] } was added successfully."
+            @items_created = get_items "Created"
+            view "list_view"
+        end
+    else
+        @message = "Item #{ params["item_name"] } was already added."
+        @items_created = get_items "Created"
+        view "list_view"
+    end
 end
 
 get "/history" do
@@ -117,4 +178,23 @@ end
 
 get "/history/calendar" do
     view "history_calendar_view"
+end
+
+def get_items (param_status_name = "Created")
+   return DB["select items.*, status_name, chain_name, user_name, email from items, status, chains, users where created_by=users.id and chain_id=chains.id and status_id=status.id and status.status_name=?", param_status_name]
+end
+
+def uuid_check (param_uuid)
+    puts param_uuid
+    uuids = DB["select * from uuids where uuid=?", param_uuid]
+    puts uuids.inspect
+    uuid_count = uuids.count
+
+    if uuid_count == 0
+        uuids_table = DB.from(:uuids)
+        uuids_table.insert(:uuid => param_uuid)
+        return true
+    else
+        return false
+    end
 end

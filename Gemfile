@@ -7,6 +7,7 @@ gem 'pg'
 gem 'geocoder'
 gem 'twilio-ruby'
 gem 'bcrypt'
+gem 'securerandom'
 
 group :development do
   gem 'sqlite3'

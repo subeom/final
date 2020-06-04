@@ -4,44 +4,54 @@ connection_string = ENV['DATABASE_URL'] || "sqlite://#{Dir.pwd}/development.sqli
 DB = Sequel.connect(connection_string)                                                #
 #######################################################################################
 
+DB.run "DROP TABLE items;"
+DB.run "DROP TABLE users;"
+DB.run "DROP TABLE stores;"
+DB.run "DROP TABLE chains;"
+DB.run "DROP TABLE status;"
+
 # Database schema - this should reflect your domain model
-DB.create_table! :status do
+DB.create_table :status do
   primary_key :id
-  String :status_name
+  String :status_name, null: false
 end
 
-DB.create_table! :chains do
+DB.create_table :chains do
   primary_key :id
-  String :chain_name
+  String :chain_name, null: false
 end
 
-DB.create_table! :stores do
+DB.create_table :stores do
   primary_key :id
   foreign_key :chain_id, :chains
-  String :branch
-  String :address
-  Float :latitude
-  Float :longitude
+  String :branch, null: false
+  String :address, null: false
+  Float :latitude, null: false
+  Float :longitude, null: false
 end
 
-DB.create_table! :users do
+DB.create_table :users do
   primary_key :id
-  String :user_name
-  String :email, unique: true
-  String :password
-  Timestamp :created_at, default: Sequel::CURRENT_TIMESTAMP
+  String :user_name, null: false
+  String :email, unique: true, null: false
+  String :password, null: false
+  Timestamp :created_at, default: Sequel::CURRENT_TIMESTAMP, null: false
 end
 
-DB.create_table! :items do
+DB.create_table :items do
   primary_key :id
-  String :item_name
-  String :detail
-  foreign_key :chain_id, :chains
-  foreign_key :created_by, :users
-  Timestamp :created_at, default: Sequel::CURRENT_TIMESTAMP
-  foreign_key :status_id, :status, default: 1
-  foreign_key :status_changed_by, :users
-  Timestamp :status_changed_at, default: Sequel::CURRENT_TIMESTAMP
+  String :item_name, null: false
+  String :detail, null: false
+  foreign_key :chain_id, :chains, null: false
+  foreign_key :created_by, :users, null: false
+  Timestamp :created_at, default: Sequel::CURRENT_TIMESTAMP, null: false
+  foreign_key :status_id, :status, default: 1, null: false
+  foreign_key :status_changed_by, :users, null: false
+  Timestamp :status_changed_at, default: Sequel::CURRENT_TIMESTAMP, null: false
+end
+
+DB.create_table! :uuids do
+    String :uuid, unique: true
 end
 
 # Insert initial (seed) data

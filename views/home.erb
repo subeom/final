@@ -1,4 +1,14 @@
-home.erb
+Hello, <%= @current_user[:user_name] %>.
+<br>
+<%= session[:user_id] %>
+<br>
+<%= @current_user[:id] %>
+<br>
+<%= @current_user[:user_name] %>
+<br>
+<%= @current_user[:email] %>
+
+
 <br>
 <a href="/">/</a>
 <br>
@@ -15,3 +25,5 @@ home.erb
 <a href="/history">/history</a>
 <br>
 <a href="/history/calendar">/history/calendar</a>
+<br>
+<a href="/logout" class="btn btn-secondary">Log Out</a>

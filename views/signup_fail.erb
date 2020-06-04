@@ -1,5 +1,11 @@
 Sign Up Failed. <%= @error_message %>
+<% if @current_user %>
+<br>
+<a href="/logout" class="btn btn-primary">Log Out</a>
+<% else %>
 <br>
 <a href="/signup" class="btn btn-primary">Sign Up Again</a>
+
 <br>
 <a href="/login" class="btn btn-primary">Login</a>
+<% end %>

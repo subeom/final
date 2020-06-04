@@ -1,1 +1,22 @@
-add_item_form.erb
+<h1>Add Item</h1>
+
+<form action="/add/item/action" method="POST">
+  <input type="hidden" name="uuid" value="<%= SecureRandom.uuid %>">
+  <div class="form-group">
+    <label>Chain</label>
+    <select name="chain_id" class="form-control">
+    <% for chain in @chains %>
+        <option value="<%= chain[:id] %>"><%= chain[:chain_name] %></option>
+    <% end %>
+    </select>
+  </div>
+  <div class="form-group">
+    <label>Item</label>
+    <input type="text" class="form-control" name="item_name">
+  </div>
+  <div class="form-group">
+    <label>Detail</label>
+    <input type="text" class="form-control" name="detail">
+  </div>
+  <button type="submit" class="btn btn-primary">Add Item</button>
+</form>
