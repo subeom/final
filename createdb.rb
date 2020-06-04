@@ -45,12 +45,12 @@ DB.run "CREATE TABLE stores (
 
 DB.run "ALTER TABLE items ADD FOREIGN KEY (\"chain_id\") REFERENCES \"chains\" (\"id\");"
 
-DB.run("ALTER TABLE items ADD FOREIGN KEY (\"created_by\") REFERENCES \"users\" (\"id\");"
+DB.run "ALTER TABLE items ADD FOREIGN KEY (\"created_by\") REFERENCES \"users\" (\"id\");"
 
-DB.run("ALTER TABLE items ADD FOREIGN KEY (\"status_id\") REFERENCES \"status\" (\"id\");"
+DB.run "ALTER TABLE items ADD FOREIGN KEY (\"status_id\") REFERENCES \"status\" (\"id\");"
 
-DB.run("ALTER TABLE items ADD FOREIGN KEY (\"status_changed_by\") REFERENCES \"users\" (\"id\");"
+DB.run "ALTER TABLE items ADD FOREIGN KEY (\"status_changed_by\") REFERENCES \"users\" (\"id\");"
 
-DB.run("ALTER TABLE items ADD FOREIGN KEY (\"status_changed_in\") REFERENCES \"stores\" (\"id\");"
+DB.run "ALTER TABLE items ADD FOREIGN KEY (\"status_changed_in\") REFERENCES \"stores\" (\"id\");"
 
-DB.run("ALTER TABLE stores ADD FOREIGN KEY (\"chain_id\") REFERENCES \"chains\" (\"id\");"
+DB.run "ALTER TABLE stores ADD FOREIGN KEY (\"chain_id\") REFERENCES \"chains\" (\"id\");"
