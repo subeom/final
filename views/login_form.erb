@@ -1,1 +1,16 @@
-login_form.erb
+<h1>Login</h1>
+
+<form action="/login/action" method="POST">
+  <div class="form-group">
+    <label>Email address</label>
+    <input type="email" class="form-control" placeholder="name@example.com" name="email">
+  </div>
+  <div class="form-group">
+    <label>Password</label>
+    <input type="password" class="form-control" name="password">
+  </div>
+  <button type="submit" class="btn btn-primary">Sign In</button>
+</form>
+
+<br>
+<a href="/signup" class="btn btn-secondary">Sign Up</a>

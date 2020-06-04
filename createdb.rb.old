@@ -4,45 +4,64 @@ connection_string = ENV['DATABASE_URL'] || "sqlite://#{Dir.pwd}/development.sqli
 DB = Sequel.connect(connection_string)                                                #
 #######################################################################################
 
-# Database schema - this should reflect your domain model
-DB.create_table! :status do
-  primary_key :id
-  String :status_name
-end
+DB.run "DROP TABLE items;"
+DB.run "DROP TABLE users;"
+DB.run "DROP TABLE stores;"
+DB.run "DROP TABLE chains;"
+DB.run "DROP TABLE status;"
 
-DB.create_table! :chains do
-  primary_key :id
-  String :chain_name
-end
+DB.run "CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  user_name varchar,
+  email varchar UNIQUE,
+  password varchar,
+  created_at timestamp
+);"
 
-DB.create_table! :stores do
-  primary_key :id
-  foreign_key :chain_id, :chains
-  String :branch
-  String :address
-  Float :latitude
-  Float :longitude
-end
+DB.run "CREATE TABLE items (
+  id SERIAL PRIMARY KEY,
+  item_name varchar,
+  detail varchar,
+  chain_id int,
+  created_by int,
+  created_at timestamp,
+  status_id int,
+  status_changed_by int,
+  status_changed_at timestamp,
+  status_changed_in int
+);"
 
-DB.create_table! :users do
-  primary_key :id
-  String :user_name
-  String :email, unique: true
-  String :password
-  Timestamp :created_at, default: Sequel::CURRENT_TIMESTAMP
-end
+DB.run "CREATE TABLE chains (
+  id SERIAL PRIMARY KEY,
+  chain_name varchar
+);"
 
-DB.create_table! :items do
-  primary_key :id
-  String :item_name
-  String :detail
-  foreign_key :chain_id, :chains
-  foreign_key :created_by, :users
-  Timestamp :created_at, default: Sequel::CURRENT_TIMESTAMP
-  foreign_key :status_id, :status, default: 1
-  foreign_key :status_changed_by, :users
-  Timestamp :status_changed_at, default: Sequel::CURRENT_TIMESTAMP
-end
+DB.run "CREATE TABLE stores (
+  id SERIAL PRIMARY KEY,
+  chain_id int,
+  branch varchar,
+  address varchar,
+  latitude float,
+  longitude float
+);"
+
+DB.run "CREATE TABLE status (
+  id SERIAL PRIMARY KEY,
+  status_name varchar
+);"
+
+DB.run "ALTER TABLE items ADD FOREIGN KEY (\"chain_id\") REFERENCES \"chains\" (\"id\");"
+
+DB.run "ALTER TABLE items ADD FOREIGN KEY (\"created_by\") REFERENCES \"users\" (\"id\");"
+
+DB.run "ALTER TABLE items ADD FOREIGN KEY (\"status_id\") REFERENCES \"status\" (\"id\");"
+
+DB.run "ALTER TABLE items ADD FOREIGN KEY (\"status_changed_by\") REFERENCES \"users\" (\"id\");"
+
+DB.run "ALTER TABLE items ADD FOREIGN KEY (\"status_changed_in\") REFERENCES \"stores\" (\"id\");"
+
+DB.run "ALTER TABLE stores ADD FOREIGN KEY (\"chain_id\") REFERENCES \"chains\" (\"id\");"
+
 
 # Insert initial (seed) data
 status_table = DB.from(:status)
@@ -76,3 +95,4 @@ stores_table.insert(chain_id: 3,
                     address: '1211 Chicago Ave, Evanston, IL 60202',
                     latitude: 42.039940,
                     longitude: -87.680080)
+

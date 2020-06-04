@@ -21,8 +21,6 @@ after { puts; }                                                                 
 # events_table = DB.from(:events)
 # rsvps_table = DB.from(:rsvps)
 
-events_table = DB.from(:events)
-rsvps_table = DB.from(:rsvps)
 users_table = DB.from(:users)
 
 before do
@@ -32,27 +30,69 @@ before do
 end
 
 get "/" do
-    #view "login_form"
-    view "home"
+    if @current_user
+        view "home"
+    else
+        view "login_form"
+    end
 end
 
 get "/login" do
-    #view "home"
-    view "login_form"
+    if @current_user
+        view "home"
+    else
+        view "login_form"
+    end
 end
 
 get "/login/action" do
-    view "login_success"
-    view "login_fail"
+    puts params
+    email_entered = params["email"]
+    password_entered = params["password"]
+    # SELECT * FROM users WHERE email = email_entered
+    user = users_table.where(:email => email_entered).to_a[0]
+    if user
+        puts user.inspect
+        # test the password against the one in the users table
+        if user[:password] == password_entered
+            session[:user_id] = user[:id]
+            view "login_success"
+        else
+            view "login_fail"
+        end
+    else 
+        view "create_login_failed"
+    end
 end
 
 get "/signup" do
     view "signup_form"
 end
 
-get "/signup/action" do
-    view "signup_success"
-    view "signup_fail"
+post "/signup/action" do
+    encrypted_password = BCrypt::Password.create(params["password"])
+
+    @error_message = nil
+
+    if users_table.where(email: params["email"]).first
+        @error_message = "The email address, #{params["email"]}, already exists."
+        view "signup_fail"        
+    else
+        users_table.insert(:user_name => params["name"],
+                        :email => params["email"],
+                        :password => encrypted_password)
+
+        user = users_table.where(email: params["email"], password: encrypted_password).select(:email).first
+
+        if user
+            @email_signed_up = user[:email]
+            puts @email_signed_up.inspect
+            view "signup_success"
+        else
+            @error_message = "Unknown error occurred. Please try to sign up later."
+            view "signup_fail"
+        end
+    end
 end
 
 get "/list" do
