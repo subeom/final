@@ -4,32 +4,53 @@ connection_string = ENV['DATABASE_URL'] || "sqlite://#{Dir.pwd}/development.sqli
 DB = Sequel.connect(connection_string)                                                #
 #######################################################################################
 
-# Database schema - this should reflect your domain model
-DB.create_table! :events do
-  primary_key :id
-  String :title
-  String :description, text: true
-  String :date
-  String :location
-end
-DB.create_table! :rsvps do
-  primary_key :id
-  foreign_key :event_id
-  Boolean :going
-  String :name
-  String :email
-  String :comments, text: true
-end
+DB.run "CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  name varchar,
+  email varchar,
+  password varchar,
+  created_at timestamp
+);"
 
-# Insert initial (seed) data
-events_table = DB.from(:events)
+DB.run "CREATE TABLE items (
+  id SERIAL PRIMARY KEY,
+  item_name varchar,
+  detail varchar,
+  chain_id int,
+  created_by int,
+  created_at timestamp,
+  status_id int,
+  status_changed_by int,
+  status_changed_at timestamp,
+  status_changed_in int
+);"
 
-events_table.insert(title: "Bacon Burger Taco Fest", 
-                    description: "Here we go again bacon burger taco fans, another Bacon Burger Taco Fest is here!",
-                    date: "June 21",
-                    location: "Kellogg Global Hub")
+DB.run "CREATE TABLE chains (
+  id SERIAL PRIMARY KEY,
+  chain_name varchar
+);"
 
-events_table.insert(title: "Kaleapolooza", 
-                    description: "If you're into nutrition and vitamins and stuff, this is the event for you.",
-                    date: "July 4",
-                    location: "Nowhere")
+DB.run "CREATE TABLE status (
+  id SERIAL PRIMARY KEY,
+  status_name varchar
+);"
+
+DB.run "CREATE TABLE stores (
+  id SERIAL PRIMARY KEY,
+  chain_id int,
+  branch varchar,
+  latitude float,
+  longitude float
+);"
+
+DB.run "ALTER TABLE items ADD FOREIGN KEY (\"chain_id\") REFERENCES \"chains\" (\"id\");"
+
+DB.run("ALTER TABLE items ADD FOREIGN KEY (\"created_by\") REFERENCES \"users\" (\"id\");"
+
+DB.run("ALTER TABLE items ADD FOREIGN KEY (\"status_id\") REFERENCES \"status\" (\"id\");"
+
+DB.run("ALTER TABLE items ADD FOREIGN KEY (\"status_changed_by\") REFERENCES \"users\" (\"id\");"
+
+DB.run("ALTER TABLE items ADD FOREIGN KEY (\"status_changed_in\") REFERENCES \"stores\" (\"id\");"
+
+DB.run("ALTER TABLE stores ADD FOREIGN KEY (\"chain_id\") REFERENCES \"chains\" (\"id\");"
