@@ -20,3 +20,61 @@ after { puts; }                                                                 
 
 # events_table = DB.from(:events)
 # rsvps_table = DB.from(:rsvps)
+
+events_table = DB.from(:events)
+rsvps_table = DB.from(:rsvps)
+users_table = DB.from(:users)
+
+before do
+    # SELECT * FROM users WHERE id = session[:user_id]
+    @current_user = users_table.where(:id => session[:user_id]).to_a[0]
+    puts @current_user.inspect
+end
+
+get "/" do
+    view "home"
+    view "login_form"
+end
+
+get "/login" do
+    view "login_form"
+    view "home"
+end
+
+get "/login/action" do
+    view "login_success"
+    view "login_fail"
+end
+
+get "/signup" do
+    view "signup_form"
+end
+
+get "/signup/action" do
+    view "signup_success"
+    view "signup_fail"
+end
+
+get "/list" do
+    view "list_view"
+end
+
+get "/list/map" do
+    view "list_map_view"
+end
+
+get "/add/item" do
+    view "add_item_form"
+end
+
+get "/add/item/action" do
+    view "list_view"
+end
+
+get "/history" do
+    view "history_list_view"
+end
+
+get "/history/calendar" do
+    view "history_calendar_view"
+end
