@@ -32,13 +32,13 @@ before do
 end
 
 get "/" do
-    view "login_form"
+    #view "login_form"
     view "home"
 end
 
 get "/login" do
+    #view "home"
     view "login_form"
-    view "home"
 end
 
 get "/login/action" do
