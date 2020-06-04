@@ -4,10 +4,10 @@ connection_string = ENV['DATABASE_URL'] || "sqlite://#{Dir.pwd}/development.sqli
 DB = Sequel.connect(connection_string)                                                #
 #######################################################################################
 
-DB.run "DROP TABLE users;"
 DB.run "DROP TABLE items;"
-DB.run "DROP TABLE chains;"
+DB.run "DROP TABLE users;"
 DB.run "DROP TABLE stores;"
+DB.run "DROP TABLE chains;"
 DB.run "DROP TABLE status;"
 
 DB.run "CREATE TABLE users (
