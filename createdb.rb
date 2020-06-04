@@ -6,7 +6,7 @@ DB = Sequel.connect(connection_string)                                          
 
 DB.run "CREATE TABLE users (
   id SERIAL PRIMARY KEY,
-  name varchar,
+  user_name varchar,
   email varchar,
   password varchar,
   created_at timestamp
@@ -39,6 +39,7 @@ DB.run "CREATE TABLE stores (
   id SERIAL PRIMARY KEY,
   chain_id int,
   branch varchar,
+  address varchar,
   latitude float,
   longitude float
 );"
@@ -58,13 +59,34 @@ DB.run "ALTER TABLE stores ADD FOREIGN KEY (\"chain_id\") REFERENCES \"chains\" 
 
 # Insert initial (seed) data
 status_table = DB.from(:status)
+status_table.insert(status_name: 'Created')
+status_table.insert(status_name: 'Bought')
+status_table.insert(status_name: 'Deleted')
 
-status_table.insert(name: "Bacon Burger Taco Fest", 
-                    description: "Here we go again bacon burger taco fans, another Bacon Burger Taco Fest is here!",
-                    date: "June 21",
-                    location: "Kellogg Global Hub")
+chains_table = DB.from(:chains)
+chains_table.insert(chain_name: "Costco")
+chains_table.insert(chain_name: "Korean")
+chains_table.insert(chain_name: "Trader Joe's")
 
-events_table.insert(title: "Kaleapolooza", 
-                    description: "If you're into nutrition and vitamins and stuff, this is the event for you.",
-                    date: "July 4",
-                    location: "Nowhere")
+stores_table = DB.from(:stores)
+stores_table.insert(chain_id: 1,
+                    branch: "Niles",
+                    address: "7311 N Melvina Ave, Niles, IL 60714",
+                    latitude: 42.014820,
+                    longitude: -87.780430)
+stores_table.insert(chain_id: 2,
+                    branch: "H Mart Niles",
+                    address: "801 Civic Center Dr, Niles, IL 60714",
+                    latitude: 42.025261,
+                    longitude: -87.801460)
+stores_table.insert(chain_id: 2,
+                    branch: "Joong Boo Market Glenview",
+                    address: "670 Milwaukee Ave, Glenview, IL 60025",
+                    latitude: 42.067520,
+                    longitude: -87.850700)
+stores_table.insert(chain_id: 3,
+                    branch: "Evanston",
+                    address: "1211 Chicago Ave, Evanston, IL 60202",
+                    latitude: 42.039940,
+                    longitude: -87.680080)
+
