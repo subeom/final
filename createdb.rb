@@ -4,6 +4,12 @@ connection_string = ENV['DATABASE_URL'] || "sqlite://#{Dir.pwd}/development.sqli
 DB = Sequel.connect(connection_string)                                                #
 #######################################################################################
 
+DB.run "DROP TABLE users;"
+DB.run "DROP TABLE items;"
+DB.run "DROP TABLE chains;"
+DB.run "DROP TABLE stores;"
+DB.run "DROP TABLE status;"
+
 DB.run "CREATE TABLE users (
   id SERIAL PRIMARY KEY,
   user_name varchar,
@@ -30,11 +36,6 @@ DB.run "CREATE TABLE chains (
   chain_name varchar
 );"
 
-DB.run "CREATE TABLE status (
-  id SERIAL PRIMARY KEY,
-  status_name varchar
-);"
-
 DB.run "CREATE TABLE stores (
   id SERIAL PRIMARY KEY,
   chain_id int,
@@ -42,6 +43,11 @@ DB.run "CREATE TABLE stores (
   address varchar,
   latitude float,
   longitude float
+);"
+
+DB.run "CREATE TABLE status (
+  id SERIAL PRIMARY KEY,
+  status_name varchar
 );"
 
 DB.run "ALTER TABLE items ADD FOREIGN KEY (\"chain_id\") REFERENCES \"chains\" (\"id\");"
@@ -64,29 +70,29 @@ status_table.insert(status_name: 'Bought')
 status_table.insert(status_name: 'Deleted')
 
 chains_table = DB.from(:chains)
-chains_table.insert(chain_name: "Costco")
-chains_table.insert(chain_name: "Korean")
-chains_table.insert(chain_name: "Trader Joe's")
+chains_table.insert(chain_name: 'Costco')
+chains_table.insert(chain_name: 'Korean')
+chains_table.insert(chain_name: 'Trader Joe\'s')
 
 stores_table = DB.from(:stores)
 stores_table.insert(chain_id: 1,
-                    branch: "Niles",
-                    address: "7311 N Melvina Ave, Niles, IL 60714",
+                    branch: 'Niles',
+                    address: '7311 N Melvina Ave, Niles, IL 60714',
                     latitude: 42.014820,
                     longitude: -87.780430)
 stores_table.insert(chain_id: 2,
-                    branch: "H Mart Niles",
-                    address: "801 Civic Center Dr, Niles, IL 60714",
+                    branch: 'H Mart Niles',
+                    address: '801 Civic Center Dr, Niles, IL 60714',
                     latitude: 42.025261,
                     longitude: -87.801460)
 stores_table.insert(chain_id: 2,
-                    branch: "Joong Boo Market Glenview",
-                    address: "670 Milwaukee Ave, Glenview, IL 60025",
+                    branch: 'Joong Boo Market Glenview',
+                    address: '670 Milwaukee Ave, Glenview, IL 60025',
                     latitude: 42.067520,
                     longitude: -87.850700)
 stores_table.insert(chain_id: 3,
-                    branch: "Evanston",
-                    address: "1211 Chicago Ave, Evanston, IL 60202",
+                    branch: 'Evanston',
+                    address: '1211 Chicago Ave, Evanston, IL 60202',
                     latitude: 42.039940,
                     longitude: -87.680080)
 
