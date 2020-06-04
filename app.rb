@@ -15,5 +15,8 @@ before { puts; puts "--------------- NEW REQUEST ---------------"; puts }       
 after { puts; }                                                                       #
 #######################################################################################
 
+# heroku login
+# git remote add heroku https://git.heroku.com/calm-stream-67688.git
+
 # events_table = DB.from(:events)
 # rsvps_table = DB.from(:rsvps)

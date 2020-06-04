@@ -54,3 +54,17 @@ DB.run "ALTER TABLE items ADD FOREIGN KEY (\"status_changed_by\") REFERENCES \"u
 DB.run "ALTER TABLE items ADD FOREIGN KEY (\"status_changed_in\") REFERENCES \"stores\" (\"id\");"
 
 DB.run "ALTER TABLE stores ADD FOREIGN KEY (\"chain_id\") REFERENCES \"chains\" (\"id\");"
+
+
+# Insert initial (seed) data
+status_table = DB.from(:status)
+
+status_table.insert(name: "Bacon Burger Taco Fest", 
+                    description: "Here we go again bacon burger taco fans, another Bacon Burger Taco Fest is here!",
+                    date: "June 21",
+                    location: "Kellogg Global Hub")
+
+events_table.insert(title: "Kaleapolooza", 
+                    description: "If you're into nutrition and vitamins and stuff, this is the event for you.",
+                    date: "July 4",
+                    location: "Nowhere")
