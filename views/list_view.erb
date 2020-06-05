@@ -5,30 +5,7 @@
 <br>
 <a href="/add/item" class="btn btn-primary">Add Item</a>
 <br>
-<table class="table text-white">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Name</th>
-      <th scope="col">Detail</th>
-      <th scope="col">Chain</th>
-      <th scope="col">Created by</th>
-      <th scope="col">Created at</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% for item in @items_created %>
-      <tr>
-        <th scope="row"><%= item[:id] %></th>
-        <td><%= item[:item_name] %></td>
-        <td><%= item[:detail] %></td>
-        <td><%= item[:chain_id] %>: <%= item[:chain_name] %></td>
-        <td><%= item[:created_by] %>: <%= item[:user_name] %></td>
-        <td><%= item[:created_at] %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+
 <% for chain in @chains_created %>
   <div id="accordion<%= chain[:chain_id] %>">
     <div class="card bg-dark text-white">
