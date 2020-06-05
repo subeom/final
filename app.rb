@@ -40,7 +40,7 @@ get "/" do
     end
 end
 
-get "\/login\/{0,1}" do
+get "/\/login\/{0,1}/g" do
     if @current_user
         view "home"
     else
