@@ -36,7 +36,7 @@ get "/" do
     if @current_user
 
         @stores_created = get_stores "Created"
-        @chains_created = get_stores "Created"
+        @chains_created = get_chains "Created"
         @items_created = get_items "Created"
 
         view "list_view"
@@ -49,7 +49,7 @@ get %r{/login/{0,1}} do
     if @current_user
 
         @stores_created = get_stores "Created"
-        @chains_created = get_stores "Created"
+        @chains_created = get_chains "Created"
         @items_created = get_items "Created"
 
         view "list_view"
@@ -73,7 +73,7 @@ post %r{/login/action/{0,1}} do
             @current_user = user
 
             @stores_created = get_stores "Created"
-            @chains_created = get_stores "Created"
+            @chains_created = get_chains "Created"
             @items_created = get_items "Created"
     
             view "list_view"
@@ -144,7 +144,7 @@ get %r{/list/{0,1}} do
     if @current_user
 
         @stores_created = get_stores "Created"
-        @chains_created = get_stores "Created"
+        @chains_created = get_chains "Created"
         @items_created = get_items "Created"
 
         view "list_view"
@@ -157,7 +157,7 @@ get %r{/list/map/{0,1}} do
     if @current_user
 
         @stores_created = get_stores "Created"
-        @chains_created = get_stores "Created"
+        @chains_created = get_chains "Created"
         @items_created = get_items "Created"
 
         view "list_map_view"
@@ -207,7 +207,7 @@ post %r{/add/item/action/{0,1}} do
             @message = "Item #{ params["item_name"] } was added successfully."
 
             @stores_created = get_stores "Created"
-            @chains_created = get_stores "Created"
+            @chains_created = get_chains "Created"
             @items_created = get_items "Created"
     
             twilio_meesage "Item #{ params["item_name"] } was added."
@@ -218,7 +218,7 @@ post %r{/add/item/action/{0,1}} do
         @message = "Item #{ params["item_name"] } was already added."
 
         @stores_created = get_stores "Created"
-        @chains_created = get_stores "Created"
+        @chains_created = get_chains "Created"
         @items_created = get_items "Created"
 
         view "list_view"
@@ -228,7 +228,7 @@ end
 get %r{/history/{0,1}} do
     if @current_user
         @stores_all = get_stores "ALL"
-        @chains_all = get_stores "ALL"
+        @chains_all = get_chains "ALL"
         @items_all = get_items "ALL"
 
         view "history_list_view"
