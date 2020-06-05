@@ -63,7 +63,9 @@ post %r{/login/action/{0,1}} do
         if BCrypt::Password.new(user[:password]) == password_entered
             session[:user_id] = user[:id]
             @current_user = user
-            view "home"
+
+            @items_created = get_items "Created"
+            view "list_view"
         else
             @error_message = "Incorrect Password."
             view "login_fail"
