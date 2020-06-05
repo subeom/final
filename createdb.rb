@@ -4,11 +4,21 @@ connection_string = ENV['DATABASE_URL'] || "sqlite://#{Dir.pwd}/development.sqli
 DB = Sequel.connect(connection_string)                                                #
 #######################################################################################
 
-DB.run "DROP TABLE items;"
-DB.run "DROP TABLE users;"
-DB.run "DROP TABLE stores;"
-DB.run "DROP TABLE chains;"
-DB.run "DROP TABLE status;"
+if DB.table_exists?(:items)
+    DB.drop_table :items
+end
+if DB.table_exists?(:users)
+    DB.drop_table :users
+end
+if DB.table_exists?(:stores)
+    DB.drop_table :stores
+end
+if DB.table_exists?(:chains)
+    DB.drop_table :chains
+end
+if DB.table_exists?(:status)
+    DB.drop_table :status
+end
 
 # Database schema - this should reflect your domain model
 DB.create_table :status do

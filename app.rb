@@ -3,7 +3,6 @@ require "sinatra"                                                               
 require "sinatra/reloader" if development?                                            #
 require "sequel"                                                                      #
 require "logger"                                                                      #
-require "twilio-ruby"                                                                 #
 require "geocoder"                                                                    #
 require "bcrypt"                                                                      #
 connection_string = ENV['DATABASE_URL'] || "sqlite://#{Dir.pwd}/development.sqlite3"  #
@@ -15,8 +14,10 @@ before { puts; puts "--------------- NEW REQUEST ---------------"; puts }       
 after { puts; }                                                                       #
 #######################################################################################
 
-require 'securerandom'
+require "securerandom"
 #SecureRandom.uuid # => "96b0a57c-d9ae-453f-b56f-3b154eb10cda"
+
+require "twilio-ruby"
 
 # heroku login
 # git remote add heroku https://git.heroku.com/calm-stream-67688.git
@@ -163,6 +164,9 @@ post "/add/item/action" do
 
             @message = "Item #{ params["item_name"] } was added successfully."
             @items_created = get_items "Created"
+
+            twilio_meesage "Item #{ params["item_name"] } was added."
+
             view "list_view"
         end
     else
@@ -185,9 +189,7 @@ def get_items (param_status_name = "Created")
 end
 
 def uuid_check (param_uuid)
-    puts param_uuid
     uuids = DB["select * from uuids where uuid=?", param_uuid]
-    puts uuids.inspect
     uuid_count = uuids.count
 
     if uuid_count == 0
@@ -197,4 +199,20 @@ def uuid_check (param_uuid)
     else
         return false
     end
+end
+
+def twilio_meesage (param_message)
+    account_sid = ENV["TWILIO_ACCOUNT_SID"]
+    auth_token = ENV["TWILIO_AUTH_TOKEN"]
+
+    puts param_message
+    puts account_sid
+    puts auth_token
+
+    client = Twilio::REST::Client.new(account_sid, auth_token)
+    client.messages.create(
+        from: "+12028041068",
+        to: "+18156185603",
+        body: param_message
+    )
 end
