@@ -74,8 +74,12 @@ end
 
 # Logout
 get %r{/logout/{0,1}} do
-    session[:user_id] = nil
-    view "logout"
+    if @current_user
+        session[:user_id] = nil
+        view "logout"
+    else
+        view "login"
+    end
 end
 
 get %r{/signup/{0,1}} do
@@ -121,20 +125,32 @@ post %r{/signup/action/{0,1}} do
 end
 
 get %r{/list/{0,1}} do
-    @items_created = get_items "Created"
-    view "list_view"
+    if @current_user
+        @items_created = get_items "Created"
+        view "list_view"
+    else
+        view "home"
+    end
 end
 
 get %r{/list/map/{0,1}} do
-    @items_created = get_items "Created"
-    @stores = get_stores "Created"
+    if @current_user
+        @items_created = get_items "Created"
+        @stores = get_stores "Created"
 
-    view "list_map_view"
+        view "list_map_view"
+    else
+        view "home"
+    end
 end
 
 get %r{/add/item/{0,1}} do
-    @chains = DB.from(:chains)
-    view "add_item_form"
+    if @current_user
+        @chains = DB.from(:chains)
+        view "add_item_form"
+    else
+        view "home"
+    end
 end
 
 post %r{/add/item/action/{0,1}} do
@@ -181,12 +197,20 @@ post %r{/add/item/action/{0,1}} do
 end
 
 get %r{/history/{0,1}} do
-    @items_all = get_items "ALL"
-    view "history_list_view"
+    if @current_user
+        @items_all = get_items "ALL"
+        view "history_list_view"
+    else
+        view "home"
+    end
 end
 
 get %r{/history/calendar/{0,1}} do
-    view "history_calendar_view"
+    if @current_user
+        view "history_calendar_view"
+    else
+        view "home"
+    end
 end
 
 def get_items (param_status_name = "Created")
