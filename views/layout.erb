@@ -17,10 +17,30 @@
     <link rel="icon" type="image/png" href="/favicon.png">
     <title>DO NOT BUY ANYTHING NOT ON THE LIST</title>
   </head>
+
+  <br>
+<a href="/">/</a>
+<br>
+<a href="/login">/login</a>
+<br>
+<a href="/signup">/signup</a>
+<br>
+<a href="/list">/list</a>
+<br>
+<a href="/list/map">/list/map</a>
+<br>
+<a href="/add/item">/add/item</a>
+<br>
+<a href="/history">/history</a>
+<br>
+<a href="/history/calendar">/history/calendar</a>
+<br>
+<a href="/logout" class="btn btn-secondary">Log Out</a>
+
   <body>
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand righteous" href="/">My Favorites</a>
+            <a class="navbar-brand righteous" href="/">JUST BUY THESE</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -28,23 +48,24 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="movie.html">Movie</a>
+                        <a class="nav-link" href="/list">Shopping List</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="drama.html">Drama</a>
+                        <a class="nav-link" href="/history">Shopping History</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="music.html">Music</a>
+                        <a class="nav-link" href="/add/item">Add Item</a>
                     </li>
+                    <% if @current_user %>
                     <li class="nav-item">
-                        <a class="nav-link" href="game.html">Game</a>
+                        <a class="nav-link" href="/logout">Log Out</a>
                     </li>
+                    <% else %>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Log In</a>
+                    </li>
+                    <% end %>
                 </ul>
-                <form class="form-inline my-2 my-lg-0" name="search" method="POST" data-netlify="true">
-                    <input class="form-control mr-sm-2" type="text" name="search_text" placeholder="Search"
-                        aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
             </div>
 
         </div>
