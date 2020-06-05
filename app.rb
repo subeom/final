@@ -265,7 +265,7 @@ end
 
 def get_items (param_status_name = "Created")
     if param_status_name == "ALL"
-        return DB["select items.*, status_name, chains.id as chain_id, chain_name, user_name, email, status.status_name from items, status, chains, users where created_by=users.id and chain_id=chains.id and status_id=status.id order by items.id"]
+        return DB["select items.*, status_name, chains.id as chain_id, chain_name, user_name, email, status.status_name from items, status, chains, users where created_by=users.id and chain_id=chains.id and status_id=status.id order by status_changed_at desc"]
     else
         return DB["select items.*, status_name, chains.id as chain_id, chain_name, user_name, email from items, status, chains, users where created_by=users.id and chain_id=chains.id and status_id=status.id and ((items.status_changed_at > current_timestamp + '-1 week') or status.status_name=?) order by items.id", param_status_name]
     end
