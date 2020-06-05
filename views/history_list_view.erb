@@ -5,28 +5,34 @@
 </div>
 <% for chain in @chains_all %>
   <h4><%= chain[:chain_name] %></h4>
-  <ul class="responsive-table">
-    <li class="table-header">
-      <div class="col col-1">Item</div>
-      <div class="col col-2">Detail</div>
-      <div class="col col-3">Created by</div>
-      <div class="col col-4">Created at</div>
-      <div class="col col-5">Status</div>
-      <div class="col col-6">Changed by</div>
-      <div class="col col-7">Changed at</div>
-    </li>
-    <% for item in @items_all %>
-      <% if item[:chain_id] == chain[:chain_id] %>
-        <li class="table-row">
-          <div class="col col-1" data-label="Item"><%= item[:item_name] %></div>
-          <div class="col col-2" data-label="Detail"><%= item[:detail] %></div>
-          <div class="col col-3" data-label="Created by"><%= item[:created_by_name] %></div>
-          <div class="col col-4" data-label="Created at"><%= item[:created_at].strftime("%m/%d/%Y")%></div>
-          <div class="col col-5" data-label="Status"><%= item[:status_name] %></div>
-          <div class="col col-6" data-label="Changed at"><%= item[:status_changed_by_name] %></div>
-          <div class="col col-7" data-label="Changed at"><%= item[:status_changed_at].strftime("%m/%d/%Y")%></div>
-        </li>
-      <% end %>
-    <% end %>
-  </ul>
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Detail</th>
+          <th>Created by</th>
+          <th>Created at</th>
+          <th>Status</th>
+          <th>Changed by</th>
+          <th>Changed at</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for item in @items_all %>
+          <% if item[:chain_id] == chain[:chain_id] %>
+            <tr>
+              <td><%= item[:item_name] %></td>
+              <td><%= item[:detail] %></td>
+              <td><%= item[:created_by_name] %></td>
+              <td><%= item[:created_at].strftime("%m/%d/%Y")%></td>
+              <td><%= item[:status_name] %></td>
+              <td><%= item[:status_changed_by_name] %></td>
+              <td><%= item[:status_changed_at].strftime("%m/%d/%Y")%></td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 <% end %>
