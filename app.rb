@@ -80,6 +80,7 @@ end
 get %r{/logout/{0,1}} do
     if @current_user
         session[:user_id] = nil
+        @current_user = nil
         view "logout"
     else
         view "login_form"
