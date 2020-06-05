@@ -1,0 +1,42 @@
+.h1,
+h1,
+.righteous {
+    font-family: 'Righteous', cursive;
+}
+
+.pagetop {
+    padding-top: 56px;
+}
+
+.card-margin {
+    margin-top: 1.3rem;
+}
+
+body {
+    background-color: #212529;
+    padding-top: 56px;
+    margin-bottom: 24px;
+}
+
+.text-darkgrey {
+    color: #A9A9A9;
+}
+
+.text-grey {
+    color: #808080;
+}
+
+.bg-color {
+    background-color: #212529;
+}
+
+.acc-movie {
+    margin-top: 1.3rem;
+    margin-left: 1.3rem;
+    margin-right: 1.3rem;
+}
+
+.btn-accordion {
+    font-size:1.5rem;
+    text-align:left;
+}

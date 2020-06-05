@@ -4,26 +4,52 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
-
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/6eef19e1b8.js" crossorigin="anonymous"></script>
-
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
     <!-- CSS -->
     <link rel="stylesheet" href="/styles.css">
-
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/favicon.png">
-
     <title>DO NOT BUY ANYTHING NOT ON THE LIST</title>
   </head>
   <body>
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand righteous" href="/">My Favorites</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="movie.html">Movie</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="drama.html">Drama</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="music.html">Music</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="game.html">Game</a>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0" name="search" method="POST" data-netlify="true">
+                    <input class="form-control mr-sm-2" type="text" name="search_text" placeholder="Search"
+                        aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+
+        </div>
+    </nav>
+
     <div class="container mt-5">
       <%= yield %>
     </div>
