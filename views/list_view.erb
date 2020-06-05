@@ -32,9 +32,8 @@
   </tbody>
 </table>
 
-<div id="accordion">
-
 <% for chain in @chains_created %>
+<div id="accordion<%= chain[:chain_id] %>">
   <div class="card bg-dark text-white">
     <div class="card-header" id="heading<%= chain[:chain_id] %>">
       <h5 class="mb-0">
@@ -54,9 +53,9 @@
       </div>
     </div>
   </div>
+</div>
 <% end %>
 
-</div>
 
 <div class="input-group mb-3">
   <div class="input-group-prepend">
