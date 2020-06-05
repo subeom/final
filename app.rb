@@ -172,6 +172,8 @@ post %r{/change/status/{0,1}} do
         status_id = params[:deleted] ? 3 : 1
 
         DB["update items set status_id=#{status_id} where id=#{item_id}"]
+        
+        "update items set status_id=#{status_id} where id=#{item_id}"
     else
         view "login_form"
     end
