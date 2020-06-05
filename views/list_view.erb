@@ -1,9 +1,8 @@
-<H2>Shopping List</H2>
+<h2>Shopping List</h2>
 <h4 id="message"><%= @message %></h4>
-<br>
-<a href="/add/item" class="btn btn-primary">Add Item</a>
-<br>
-
+<div class="clearfix">
+  <a href="/add/item" class="btn btn-primary">Add Item</a>
+</div>
 <% for chain in @chains_created %>
   <div id="accordion<%= chain[:chain_id] %>">
     <div class="card bg-dark text-white">
@@ -30,4 +29,3 @@
     </div>
   </div>
 <% end %>
-

@@ -1,12 +1,8 @@
-<H2>Shopping List History</H2>
-<% if @message %>
-<H4><%= @message %></H4>
-<% end %>
-
-<br>
-<a href="/add/item" class="btn btn-primary">Add Item</a>
-<br>
-
+<h2>Shopping List History</h2>
+<h4 id="message"><%= @message %></h4>
+<div class="clearfix">
+  <a href="/add/item" class="btn btn-primary">Add Item</a>
+</div>
 <table class="table text-white">
   <thead>
     <tr>
@@ -23,18 +19,17 @@
   </thead>
   <tbody>
     <% for item in @items_all %>
-    <tr>
-      <th scope="row"><%= item[:id] %></th>
-      <td><%= item[:item_name] %></td>
-      <td><%= item[:detail] %></td>
-      <td><%= item[:chain_id] %>: <%= item[:chain_name] %></td>
-      <td><%= item[:created_by] %>: <%= item[:user_name] %></td>
-      <td><%= item[:created_at] %></td>
-      <td><%= item[:status_name] %></td>
-      <td><%= item[:status_changed_by] %></td>
-      <td><%= item[:status_changed_at] %></td>
-    </tr>
+      <tr>
+        <th scope="row"><%= item[:id] %></th>
+        <td><%= item[:item_name] %></td>
+        <td><%= item[:detail] %></td>
+        <td><%= item[:chain_id] %>: <%= item[:chain_name] %></td>
+        <td><%= item[:created_by] %>: <%= item[:user_name] %></td>
+        <td><%= item[:created_at] %></td>
+        <td><%= item[:status_name] %></td>
+        <td><%= item[:status_changed_by] %></td>
+        <td><%= item[:status_changed_at] %></td>
+      </tr>
     <% end %>
   </tbody>
 </table>
-
