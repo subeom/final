@@ -34,7 +34,7 @@ end
 
 get "/" do
     if @current_user
-        view "home"
+        view "list_view"
     else
         view "login_form"
     end
@@ -42,7 +42,7 @@ end
 
 get %r{/login/{0,1}} do
     if @current_user
-        view "home"
+        view "list_view"
     else
         view "login_form"
     end
