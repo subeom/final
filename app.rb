@@ -247,25 +247,25 @@ end
 
 def get_items (param_status_name = "Created")
     if param_status_name == "ALL"
-        return DB["select items.*, status_name, chains.id as chain_id, chain_name, user_name, email, status.status_name from items, status, chains, users where created_by=users.id and chain_id=chains.id and status_id=status.id"]
+        return DB["select items.*, status_name, chains.id as chain_id, chain_name, user_name, email, status.status_name from items, status, chains, users where created_by=users.id and chain_id=chains.id and status_id=status.id order by items.id"]
     else
-        return DB["select items.*, status_name, chains.id as chain_id, chain_name, user_name, email from items, status, chains, users where created_by=users.id and chain_id=chains.id and status_id=status.id and ((items.status_changed_at > current_timestamp + '-1 week') or status.status_name=?)", param_status_name]
+        return DB["select items.*, status_name, chains.id as chain_id, chain_name, user_name, email from items, status, chains, users where created_by=users.id and chain_id=chains.id and status_id=status.id and ((items.status_changed_at > current_timestamp + '-1 week') or status.status_name=?) order by items.id", param_status_name]
     end
 end
 
 def get_stores (param_status_name = "Created")
     if param_status_name == "ALL"
-        return DB["select distinct stores.id as store_id, branch, latitude, longitude, chains.id as chain_id, chain_name from items, chains, status, stores where items.chain_id=chains.id and stores.chain_id = chains.id and status_id=status.id"]
+        return DB["select distinct stores.id as store_id, branch, latitude, longitude, chains.id as chain_id, chain_name from items, chains, status, stores where items.chain_id=chains.id and stores.chain_id = chains.id and status_id=status.id order by items.id"]
     else
-        return DB["select distinct stores.id as store_id, branch, latitude, longitude, chains.id as chain_id, chain_name from items, chains, status, stores where items.chain_id=chains.id and stores.chain_id = chains.id and status_id=status.id and ((items.status_changed_at > current_timestamp + '-1 week') or status.status_name=?)", param_status_name]
+        return DB["select distinct stores.id as store_id, branch, latitude, longitude, chains.id as chain_id, chain_name from items, chains, status, stores where items.chain_id=chains.id and stores.chain_id = chains.id and status_id=status.id and ((items.status_changed_at > current_timestamp + '-1 week') or status.status_name=?) order by items.id", param_status_name]
     end
 end
 
 def get_chains (param_status_name = "Created")
     if param_status_name == "ALL"
-        return DB["select distinct chains.id as chain_id, chain_name from items, chains, status where items.chain_id=chains.id and status_id=status.id"]
+        return DB["select distinct chains.id as chain_id, chain_name from items, chains, status where items.chain_id=chains.id and status_id=status.id order by items.id"]
     else
-        return DB["select distinct chains.id as chain_id, chain_name from items, chains, status where items.chain_id=chains.id and status_id=status.id and ((items.status_changed_at > current_timestamp + '-1 week') or status.status_name=?)", param_status_name]
+        return DB["select distinct chains.id as chain_id, chain_name from items, chains, status where items.chain_id=chains.id and status_id=status.id and ((items.status_changed_at > current_timestamp + '-1 week') or status.status_name=?) order by items.id", param_status_name]
     end
 end
 
