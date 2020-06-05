@@ -43,7 +43,7 @@
       </h5>
     </div>
 
-    <div id="collapse<%= chain[:chain_id] %>" class="collapse show" aria-labelledby="heading<%= chain[:chain_id] %>" data-parent="#accordion">
+    <div id="collapse<%= chain[:chain_id] %>" class="collapse show" aria-labelledby="heading<%= chain[:chain_id] %>" data-parent="#accordion<%= chain[:chain_id] %>">
       <div class="card-body">
       <% for item in @items_created %>
         <% if item[:chain_id] == chain[:chain_id] %>
