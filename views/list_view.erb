@@ -35,7 +35,7 @@
 <div id="accordion">
 
 <% for chain in @chains_created %>
-  <div class="card">
+  <div class="card bg-dark text-white">
     <div class="card-header" id="heading<%= chain[:chain_id] %>">
       <h5 class="mb-0">
         <button class="btn btn-link" data-toggle="collapse" data-target="#collapse<%= chain[:chain_id] %>" aria-expanded="true" aria-controls="collapse<%= chain[:chain_id] %>">
@@ -47,7 +47,9 @@
     <div id="collapse<%= chain[:chain_id] %>" class="collapse show" aria-labelledby="heading<%= chain[:chain_id] %>" data-parent="#accordion">
       <div class="card-body">
       <% for item in @items_created %>
-      <%= item[:item_name] %> : <%= item[:detail] %> <BR>
+        <% if item[:chain_id] == chain[:chain_id] %>
+            <%= item[:item_name] %> : <%= item[:detail] %> <BR>
+        <% end %>
       <% end %>
       </div>
     </div>
