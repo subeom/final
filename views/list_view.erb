@@ -21,7 +21,7 @@
           <% for item in @items_created %>
             <% if item[:chain_id] == chain[:chain_id] %>
               <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="<%= item[:id] %>"<% if item[:status_id] != 1 %> checked<% end %>>
+                <input type="checkbox" class="custom-control-input" id="<%= item[:id] %>" onchange="handleClick(this);" <% if item[:status_id] != 1 %> checked<% end %>>
                 <label class="custom-control-label" for="<%= item[:id] %>"><%= item[:item_name] %>, <%= item[:detail] %></label>
               </div>
               <br>
@@ -32,3 +32,11 @@
     </div>
   </div>
 <% end %>
+
+<script>
+function handleClick(cb) {
+  setTimeout(function() {
+    display(cb.id + " clicked, new value = " + cb.checked);
+  }, 0);
+}
+</script>
