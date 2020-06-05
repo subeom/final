@@ -176,9 +176,9 @@ post %r{/change/status/{0,1}} do
             status_id = 1
         end
 
-        DB.run "update items set status_id=#{status_id}, status_changed_at=current_timestamp where id=#{item_id}"
+        DB.run "update items set status_id=#{status_id}, status_changed_at=current_timestamp, status_changed_by=#{ @current_user[:id] } where id=#{item_id}"
 
-        "update items set status_id=#{status_id}, status_changed_at=current_timestamp where id=#{item_id}"
+        "update items set status_id=#{status_id}, status_changed_at=current_timestamp, status_changed_by=#{ @current_user[:id] } where id=#{item_id}"
     else
         view "login_form"
     end
