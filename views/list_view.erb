@@ -1,12 +1,10 @@
 <H2>Shopping List</H2>
 <% if @message %>
-<H4><%= @message %></H4>
+  <H4><%= @message %></H4>
 <% end %>
-
 <br>
 <a href="/add/item" class="btn btn-primary">Add Item</a>
 <br>
-
 <table class="table text-white">
   <thead>
     <tr>
@@ -20,49 +18,43 @@
   </thead>
   <tbody>
     <% for item in @items_created %>
-    <tr>
-      <th scope="row"><%= item[:id] %></th>
-      <td><%= item[:item_name] %></td>
-      <td><%= item[:detail] %></td>
-      <td><%= item[:chain_id] %>: <%= item[:chain_name] %></td>
-      <td><%= item[:created_by] %>: <%= item[:user_name] %></td>
-      <td><%= item[:created_at] %></td>
-    </tr>
+      <tr>
+        <th scope="row"><%= item[:id] %></th>
+        <td><%= item[:item_name] %></td>
+        <td><%= item[:detail] %></td>
+        <td><%= item[:chain_id] %>: <%= item[:chain_name] %></td>
+        <td><%= item[:created_by] %>: <%= item[:user_name] %></td>
+        <td><%= item[:created_at] %></td>
+      </tr>
     <% end %>
   </tbody>
 </table>
-
 <% for chain in @chains_created %>
-<div id="accordion<%= chain[:chain_id] %>">
-  <div class="card bg-dark text-white">
-    <div class="card-header" id="heading<%= chain[:chain_id] %>">
-      <h5 class="mb-0">
-        <button class="btn btn-secondary btn-lg btn-block" data-toggle="collapse" data-target="#collapse<%= chain[:chain_id] %>" aria-expanded="true" aria-controls="collapse<%= chain[:chain_id] %>">
-          <%= chain[:chain_name] %>
-        </button>
-      </h5>
-    </div>
-
-    <div id="collapse<%= chain[:chain_id] %>" class="collapse show" aria-labelledby="heading<%= chain[:chain_id] %>" data-parent="#accordion<%= chain[:chain_id] %>">
-      <div class="card-body">
-        <div class="input-group mb-3">
-          <% for item in @items_created %>
-            <% if item[:chain_id] == chain[:chain_id] %>
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <input type="checkbox" aria-label="Checkbox for following text input">
+  <div id="accordion<%= chain[:chain_id] %>">
+    <div class="card bg-dark text-white">
+      <div class="card-header" id="heading<%= chain[:chain_id] %>">
+        <h5 class="mb-0">
+          <button class="btn btn-secondary btn-lg btn-block" data-toggle="collapse" data-target="#collapse<%= chain[:chain_id] %>" aria-expanded="true" aria-controls="collapse<%= chain[:chain_id] %>">
+            <%= chain[:chain_name] %>
+          </button>
+        </h5>
+      </div>
+      <div id="collapse<%= chain[:chain_id] %>" class="collapse show" aria-labelledby="heading<%= chain[:chain_id] %>" data-parent="#accordion<%= chain[:chain_id] %>">
+        <div class="card-body">
+          <div class="input-group mb-3">
+            <% for item in @items_created %>
+              <% if item[:chain_id] == chain[:chain_id] %>
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <input type="checkbox" aria-label="Checkbox for following text input">
+                  </div>
                 </div>
-              </div>
-              <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value="<%= item[:item_name] %>, <%= item[:detail] %>">
+                <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value="<%= item[:item_name] %>, <%= item[:detail] %>">
+              <% end %>
             <% end %>
-          <% end %>
+          </div>
         </div>
-      <% end %>
       </div>
     </div>
   </div>
-</div>
 <% end %>
-
-
-
