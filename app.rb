@@ -34,6 +34,7 @@ end
 
 get "/" do
     if @current_user
+        @items_created = get_items "Created"
         view "list_view"
     else
         view "login_form"
@@ -42,6 +43,7 @@ end
 
 get %r{/login/{0,1}} do
     if @current_user
+        @items_created = get_items "Created"
         view "list_view"
     else
         view "login_form"
