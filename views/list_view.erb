@@ -45,10 +45,18 @@
 
     <div id="collapse<%= chain[:chain_id] %>" class="collapse show" aria-labelledby="heading<%= chain[:chain_id] %>" data-parent="#accordion<%= chain[:chain_id] %>">
       <div class="card-body">
-      <% for item in @items_created %>
-        <% if item[:chain_id] == chain[:chain_id] %>
-            <%= item[:item_name] %> : <%= item[:detail] %> <BR>
-        <% end %>
+        <div class="input-group mb-3">
+          <% for item in @items_created %>
+            <% if item[:chain_id] == chain[:chain_id] %>
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <input type="checkbox" aria-label="Checkbox for following text input">
+                </div>
+              </div>
+              <input type="text" class="form-control" aria-label="Text input with checkbox" readonly value="<%= item[:item_name] %>, <%= item[:detail] %>">
+            <% end %>
+          <% end %>
+        </div>
       <% end %>
       </div>
     </div>
@@ -57,21 +65,4 @@
 <% end %>
 
 
-<div class="input-group mb-3">
-  <div class="input-group-prepend">
-    <div class="input-group-text">
-      <input type="checkbox" aria-label="Checkbox for following text input">
-    </div>
-  </div>
-  <input type="text" class="form-control" aria-label="Text input with checkbox">
-</div>
-
-<div class="input-group">
-  <div class="input-group-prepend">
-    <div class="input-group-text">
-    <input type="radio" aria-label="Radio button for following text input">
-    </div>
-  </div>
-  <input type="text" class="form-control" aria-label="Text input with radio button">
-</div>
 
