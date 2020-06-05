@@ -48,80 +48,80 @@ body {
 
 .responsive-table {
     li {
-        border-radius: 3px;
-        padding: 25px 30px;
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 25px;
+        border-radius: 3px !important; 
+        padding: 25px 30px !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        margin-bottom: 25px !important;
     }
 
     .table-header {
-        background-color: #95A5A6;
-        font-size: 14px;
-        text-transform: uppercase;
-        letter-spacing: 0.03em;
+        background-color: #95A5A6 !important;
+        font-size: 14px !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.03em !important;
     }
 
     .table-row {
-        background-color: #ffffff;
-        box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1);
+        background-color: #ffffff !important;
+        box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1) !important;
     }
 
     .col-1 {
-        flex-basis: 20%;
+        flex-basis: 20% !important;
     }
 
     .col-2 {
-        flex-basis: 20%;
+        flex-basis: 20% !important;
     }
 
     .col-3 {
-        flex-basis: 10%;
+        flex-basis: 10% !important;
     }
 
     .col-4 {
-        flex-basis: 15%;
+        flex-basis: 15% !important;
     }
 
     .col-5 {
-        flex-basis: 10%;
+        flex-basis: 10% !important;
     }
 
     .col-6 {
-        flex-basis: 10%;
+        flex-basis: 10% !important;
     }
 
     .col-7 {
-        flex-basis: 15%;
+        flex-basis: 15% !important;
     }
 
     @media all and (max-width: 767px) {
         .table-header {
-            display: none;
+            display: none !important;
         }
 
         .table-row {}
 
         li {
-            display: block;
+            display: block !important;
         }
 
         .col {
 
-            flex-basis: 100%;
+            flex-basis: 100% !important;
 
         }
 
         .col {
-            display: flex;
-            padding: 10px 0;
+            display: flex !important;
+            padding: 10px 0 !important;
 
             &:before {
-                color: #6C7A89;
-                padding-right: 10px;
-                content: attr(data-label);
-                flex-basis: 50%;
-                text-align: right;
+                color: #6C7A89 !important;
+                padding-right: 10px !important;
+                content: attr(data-label) !important;
+                flex-basis: 50% !important;
+                text-align: right !important;
             }
         }
     }
