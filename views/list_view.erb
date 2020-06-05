@@ -1,5 +1,7 @@
-<H1>Shopping List<H1>
-<H3><%= @message %></H3>
+<H2>Shopping List<H2>
+<% if @message %>
+<H4><%= @message %></H4>
+<% end %>
 
 <br>
 <a href="/add/item" class="btn btn-primary">Add Item</a>
