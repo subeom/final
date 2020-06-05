@@ -4,6 +4,10 @@ h1,
     font-family: 'Righteous', cursive;
 }
 
+.mt-5, .my-5 {
+    margin-top: 1rem!important;
+}
+
 .pagetop {
     padding-top: 56px;
 }
