@@ -205,8 +205,11 @@ post %r{/add/item/action/{0,1}} do
                             :status_changed_by => session[:user_id])
 
             @message = "Item #{ params["item_name"] } was added successfully."
-            @items_created = get_items "Created"
 
+            @stores_created = get_stores "Created"
+            @chains_created = get_stores "Created"
+            @items_created = get_items "Created"
+    
             twilio_meesage "Item #{ params["item_name"] } was added."
 
             view "list_view"
