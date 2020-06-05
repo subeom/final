@@ -176,7 +176,7 @@ post %r{/change/status/{0,1}} do
             status_id = 1
         end
 
-        DB["update items set status_id=#{status_id} where id=#{item_id}"]
+        DB.run "update items set status_id=#{status_id} where id=#{item_id}"
 
         "update items set status_id=#{status_id} where id=#{item_id}"
     else
