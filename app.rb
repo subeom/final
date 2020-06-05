@@ -121,10 +121,14 @@ post "/signup/action" do
 end
 
 get "/list" do
+    @items_created = get_items "Created"
     view "list_view"
 end
 
 get "/list/map" do
+    @items_created = get_items "Created"
+    @stores = get_stores "Created"
+
     view "list_map_view"
 end
 
@@ -177,6 +181,7 @@ post "/add/item/action" do
 end
 
 get "/history" do
+    @items_all = get_items "ALL"
     view "history_list_view"
 end
 
@@ -185,7 +190,15 @@ get "/history/calendar" do
 end
 
 def get_items (param_status_name = "Created")
-   return DB["select items.*, status_name, chain_name, user_name, email from items, status, chains, users where created_by=users.id and chain_id=chains.id and status_id=status.id and status.status_name=?", param_status_name]
+    if param_status_name == "ALL"
+        return DB["select items.*, status_name, chains.id as chain_id, chain_name, user_name, email, status.status_name from items, status, chains, users where created_by=users.id and chain_id=chains.id and status_id=status.id"]
+    else
+        return DB["select items.*, status_name, chains.id as chain_id, chain_name, user_name, email from items, status, chains, users where created_by=users.id and chain_id=chains.id and status_id=status.id and status.status_name=?", param_status_name]
+    end
+end
+
+def get_stores (param_status_name = "Created")
+   return DB["select distinct stores.id as store_id, branch, latitude, longitude, chains.id as chain_id, chain_name from items, chains, status, stores where items.chain_id=chains.id and stores.chain_id = chains.id and status_id=status.id and status.status_name=?", param_status_name]
 end
 
 def uuid_check (param_uuid)
@@ -204,10 +217,6 @@ end
 def twilio_meesage (param_message)
     account_sid = ENV["TWILIO_ACCOUNT_SID"]
     auth_token = ENV["TWILIO_AUTH_TOKEN"]
-
-    puts param_message
-    puts account_sid
-    puts auth_token
 
     client = Twilio::REST::Client.new(account_sid, auth_token)
     client.messages.create(
