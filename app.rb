@@ -40,7 +40,7 @@ get "/" do
     end
 end
 
-get %r{/login/{0,1}$} do
+get %r{/login/{0,1}} do
     if @current_user
         view "home"
     else
@@ -48,7 +48,7 @@ get %r{/login/{0,1}$} do
     end
 end
 
-post "/login/action" do
+post %r{/login/action/{0,1}} do
     email_entered = params["email"]
     password_entered = params["password"]
 
@@ -73,12 +73,12 @@ post "/login/action" do
 end
 
 # Logout
-get "/logout" do
+get %r{/logout/{0,1}} do
     session[:user_id] = nil
     view "logout"
 end
 
-get "/signup" do
+get %r{/signup/{0,1}} do
     if @current_user
         @error_message = "You are currently logged in with email address #{@current_user[:email]}. Please log out first."
         view "signup_fail"
@@ -87,7 +87,7 @@ get "/signup" do
     end
 end
 
-post "/signup/action" do
+post %r{/signup/action/{0,1}} do
     if uuid_check params["uuid"]
         encrypted_password = BCrypt::Password.create(params["password"])
 
@@ -120,24 +120,24 @@ post "/signup/action" do
     end
 end
 
-get "/list" do
+get %r{/list/{0,1}} do
     @items_created = get_items "Created"
     view "list_view"
 end
 
-get "/list/map" do
+get %r{/list/map/{0,1}} do
     @items_created = get_items "Created"
     @stores = get_stores "Created"
 
     view "list_map_view"
 end
 
-get "/add/item" do
+get %r{/add/item/{0,1}} do
     @chains = DB.from(:chains)
     view "add_item_form"
 end
 
-post "/add/item/action" do
+post %r{/add/item/action/{0,1}} do
     @error_message = nil
     @message = nil
 
@@ -180,12 +180,12 @@ post "/add/item/action" do
     end
 end
 
-get "/history" do
+get %r{/history/{0,1}} do
     @items_all = get_items "ALL"
     view "history_list_view"
 end
 
-get "/history/calendar" do
+get %r{/history/calendar/{0,1}} do
     view "history_calendar_view"
 end
 
