@@ -78,7 +78,7 @@ get %r{/logout/{0,1}} do
         session[:user_id] = nil
         view "logout"
     else
-        view "login"
+        view "login_form"
     end
 end
 
@@ -129,7 +129,7 @@ get %r{/list/{0,1}} do
         @items_created = get_items "Created"
         view "list_view"
     else
-        view "home"
+        view "login_form"
     end
 end
 
@@ -140,7 +140,7 @@ get %r{/list/map/{0,1}} do
 
         view "list_map_view"
     else
-        view "home"
+        view "login_form"
     end
 end
 
@@ -149,7 +149,7 @@ get %r{/add/item/{0,1}} do
         @chains = DB.from(:chains)
         view "add_item_form"
     else
-        view "home"
+        view "login_form"
     end
 end
 
@@ -201,7 +201,7 @@ get %r{/history/{0,1}} do
         @items_all = get_items "ALL"
         view "history_list_view"
     else
-        view "home"
+        view "login_form"
     end
 end
 
@@ -209,7 +209,7 @@ get %r{/history/calendar/{0,1}} do
     if @current_user
         view "history_calendar_view"
     else
-        view "home"
+        view "login_form"
     end
 end
 
