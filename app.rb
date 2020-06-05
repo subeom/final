@@ -169,10 +169,15 @@ end
 post %r{/change/status/{0,1}} do
     if @current_user
         item_id = params[:item_id]
-        status_id = params[:deleted] ? 3 : 1
+        status_id = nil
+        if params[:deleted] == "true"
+            status_id = 3
+        else
+            status_id = 1
+        end
 
         DB["update items set status_id=#{status_id} where id=#{item_id}"]
-        
+
         "update items set status_id=#{status_id} where id=#{item_id}"
     else
         view "login_form"
