@@ -20,53 +20,53 @@
   <body>
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
-        <a class="navbar-brand righteous" href="/">JUST BUY THESE</a>
-        <% if @current_user %>
-          , <%= @current_user[:user_name] %>.
-        <% end %>
-      </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="/list">Shopping List</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/history">Shopping History</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/add/item">Add Item</a>
-          </li>
+        <a class="navbar-brand righteous" href="/">JUST BUY THESE
           <% if @current_user %>
-            <li class="nav-item">
-              <a class="nav-link" href="/logout">Log Out</a>
-            </li>
-          <% else %>
-            <li class="nav-item">
-              <a class="nav-link" href="/login">Log In</a>
-            </li>
+            , <%= @current_user[:user_name] %>.
           <% end %>
-        </ul>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/list">Shopping List</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/history">Shopping History</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/add/item">Add Item</a>
+            </li>
+            <% if @current_user %>
+              <li class="nav-item">
+                <a class="nav-link" href="/logout">Log Out</a>
+              </li>
+            <% else %>
+              <li class="nav-item">
+                <a class="nav-link" href="/login">Log In</a>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container mt-5 text-white">
+      <%= yield %>
+    </div>
+    <div class="container-fluid fixed-bottom bg-color">
+      <div class="row">
+        <div class="col-md-12 text-center text-grey">
+          <small>Copyright <a href="index.html" class="text-darkgrey righteous">My Favorites</a> <i class="far fa-copyright"></i> 2020. All rights reserved.</small>
+        </div>
       </div>
     </div>
-  </nav>
-  <div class="container mt-5 text-white">
-    <%= yield %>
-  </div>
-  <div class="container-fluid fixed-bottom bg-color">
-    <div class="row">
-      <div class="col-md-12 text-center text-grey">
-        <small>Copyright <a href="index.html" class="text-darkgrey righteous">My Favorites</a> <i class="far fa-copyright"></i> 2020. All rights reserved.</small>
-      </div>
-    </div>
-  </div>
-  <!-- Optional JavaScript -->
-  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-</body>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
 </html>
