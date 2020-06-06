@@ -1,57 +1,20 @@
 <h2>Stores</h2>
-
-<div class="accordion acc-movie">
+<% for chain in @chains_all %>
+  <div class="accordion acc-movie">
+    <% for store in @stores_all %>
+      <% if item[:chain_id] == chain[:chain_id] %>
         <div class="row">
-            <div class="col-sm-6 col-md-6 card-margin">
-                <div class="card text-white bg-dark mb-6">
-                    <img src="martian.png" class="card-img-top img-fluid">
-                    <div class="card-body">
-                        <h5 class="card-title">Movie</h5>
-                        <p class="card-text">A list of movies from 20th to 21st century. Movies about prison, space, and
-                            Bong Joon Ho's collection.</p>
-                        <a href="movie.html" class="btn btn-outline-secondary">Favorite Movies</a>
-                    </div>
-                </div>
+          <div class="col-sm-12 col-md-6 card-margin">
+            <div class="card text-white bg-dark mb-6">
+              <iframe class=card-img-top img-fluid" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCtovsQvkIUWlNqtYwXY87gEd4ZSmJEhMw&q=<%= store[:latitude] %>,<%= store[:longitude] %>&zoom=6" allowfullscreen>
+              </iframe>
+              <div class="card-body">
+                <h5 class="card-title"><%= chain[:chain_name] %> <%= store[:branch] %></h5>
+              </div>
             </div>
-            <div class="col-sm-6 col-md-6 card-margin">
-                <div class="card text-white bg-dark mb-6">
-                    <img src="sunshine3.jpg" class="card-img-top img-fluid">
-                    <div class="card-body">
-                        <h5 class="card-title">Drama</h5>
-                        <p class="card-text">There are outstanding dramas from Korea and the US in Netflix. You'll never regret when you choose one from this list.</p>
-                        <a href="drama.html" class="btn btn-outline-secondary">Favorite Dramas</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-6 card-margin">
-                <div class="card text-white bg-dark mb-6">
-                    <img src="bts.jpg" class="card-img-top img-fluid">
-                    <div class="card-body">
-                        <h5 class="card-title">Music</h5>
-                        <p class="card-text">From Mariah Carey to BTS. My choices must be quite attractive options for you.</p>
-                        <a href="music.html" class="btn btn-outline-secondary">Favorite Music</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-6 card-margin">
-                <div class="card text-white bg-dark mb-6">
-                    <img src="ats.jpg" class="card-img-top img-fluid">
-                    <div class="card-body">
-                        <h5 class="card-title">Game</h5>
-                        <p class="card-text">Are you good at playing video games? No, I'm not. However, you can still enjoy some.</p>
-                        <a href="game.html" class="btn btn-outline-secondary">Favorite Games</a>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
-    </div>
-
-<% for store in @stores_all %>
-    <iframe
-    width="600"
-    height="450"
-    frameborder="0" 
-    style="border:0"
-    src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCtovsQvkIUWlNqtYwXY87gEd4ZSmJEhMw&q=<%= store[:latitude] %>,<%= store[:longitude] %>&zoom=6" allowfullscreen>
-    </iframe>
+      <% end%>
+    <% end %>
+  </div>
 <% end %>
