@@ -8,6 +8,8 @@ The idea of this app is from my everyday life. My wife and I are using Google Ke
 
 What if there's a simpler app to share shopping list, keep shopping history, and find stores more easily, I would definitely use the app. Now, I can make an app that can be used to share shopping list between family members.
 
+Software design document for this final project is here. [a link](https://github.com/subeom/final/blob/master/Final%20Project%20-%20Software%20Design%20Document%20-%20Subeom%20Lee.pdf)Final Project - Software Design Document - Subeom Lee.pdf
+
 Twilio API is used when a new item is being added. http://final.subeom.shop/add/item
 
 Geocoder + Google Maps API is used in Stores page. http://final.subeom.shop/stores
