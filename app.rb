@@ -198,7 +198,7 @@ post %r{/add/item/action/{0,1}} do
     @message = nil
 
     if uuid_check params["uuid"]
-        if params["item_name"] == "" || params["detail"] == ""
+        if params["item_name"] == ""
             @error_message = "At least one of the required fields is empty."
             view "add_item_fail"        
         else
