@@ -1,7 +1,7 @@
 <h2>Shopping List History</h2>
 <h5 id="message"><%= @message %></h5>
 <div class="d-flex justify-content-end">
-  <div class="p-2"><a href="/add/item" class="btn btn-primary">Add Item</a></div>
+  <a href="/add/item" class="btn btn-primary">Add Item</a>
 </div>
 <% for chain in @chains_all %>
   <h4><%= chain[:chain_name] %></h4>
