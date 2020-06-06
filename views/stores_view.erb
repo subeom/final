@@ -2,7 +2,7 @@
 <% for chain in @chains_all %>
   <div class="accordion acc-movie">
     <% for store in @stores_all %>
-      <% if item[:chain_id] == chain[:chain_id] %>
+      <% if store[:chain_id] == chain[:id] %>
         <div class="row">
           <div class="col-sm-12 col-md-6 card-margin">
             <div class="card text-white bg-dark mb-6">
