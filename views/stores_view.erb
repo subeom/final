@@ -4,7 +4,7 @@
     <% for store in @stores_all %>
       <% if store[:chain_id] == chain[:chain_id] %>
         <div class="row">
-          <div class="col-sm-12 col-md-6 card-margin">
+          <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 card-margin">
             <div class="card text-white bg-dark mb-6">
               <iframe class=card-img-top img-fluid" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCtovsQvkIUWlNqtYwXY87gEd4ZSmJEhMw&q=<%= store[:latitude] %>,<%= store[:longitude] %>&zoom=6" allowfullscreen>
               </iframe>
