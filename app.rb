@@ -257,6 +257,8 @@ end
 
 get %r{/stores/{0,1}} do
     if @current_user
+        results = Geocoder.search("2211 Campus Dr, Evanston, IL 60208")
+        @lat_long = results.first.coordinates.join(",")
         @stores_all = get_stores "ALL"
         @chains_all = get_chains "ALL"
 

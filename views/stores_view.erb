@@ -6,10 +6,12 @@
         <% if store[:chain_id] == chain[:chain_id] %>
           <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 card-margin">
             <div class="card text-white bg-dark mb-6">
-              <iframe class=card-img-top img-fluid" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCtovsQvkIUWlNqtYwXY87gEd4ZSmJEhMw&q=<%= store[:latitude] %>,<%= store[:longitude] %>&zoom=6" allowfullscreen>
+              <iframe class=card-img-top img-fluid" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCtovsQvkIUWlNqtYwXY87gEd4ZSmJEhMw&q=<%= store[:latitude] %>,<%= store[:longitude] %>&zoom=10" allowfullscreen>
               </iframe>
               <div class="card-body">
                 <h5 class="card-title"><%= chain[:chain_name] %> <%= store[:branch] %></h5>
+                <p class="card-text"><%= store[:address] %></p>
+                <a href="https://www.google.com/maps/dir/?api=1&origin=<%= @lat_long %>&destination=<%= store[:latitude] %>,<%= store[:longitude] %>" class="btn btn-outline-secondary" target="_blank">Directions</a>
               </div>
             </div>
           </div>
