@@ -1,12 +1,14 @@
 <h2>Sign Up</h2>
-<h4>Sign Up Failed. <%= @error_message %></h4>
+<h5>Sign Up Failed. <%= @error_message %></h5>
 <% if @current_user %>
-<br>
-<a href="/logout" class="btn btn-primary">Log Out</a>
+  <div class="d-flex justify-content-start">
+    <div class="p-2"><a href="/logout" class="btn btn-primary">Log Out</a></div>
+  </div>
 <% else %>
-<br>
-<a href="/signup" class="btn btn-primary">Sign Up Again</a>
-
-<br>
-<a href="/login" class="btn btn-primary">Login</a>
+  <div class="d-flex justify-content-start">
+    <div class="p-2"><a href="/signup" class="btn btn-primary">Sign Up Again</a></div>
+  </div>
+  <div class="d-flex justify-content-start">
+    <div class="p-2"><a href="/login" class="btn btn-primary">Login</a></div>
+  </div>
 <% end %>

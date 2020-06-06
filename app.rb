@@ -255,6 +255,17 @@ get %r{/history/{0,1}} do
     end
 end
 
+get %r{/stores/{0,1}} do
+    if @current_user
+        @stores_all = get_stores "ALL"
+        @chains_all = get_chains "ALL"
+
+        view "stores_view"
+    else
+        view "login_form"
+    end
+end
+
 get %r{/history/calendar/{0,1}} do
     if @current_user
         view "history_calendar_view"
