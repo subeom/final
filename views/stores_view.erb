@@ -5,9 +5,8 @@
       <% for store in @stores_all %>
         <% if store[:chain_id] == chain[:chain_id] %>
           <div class="col-6 card-margin">
-            <div class="card text-white bg-dark mb-6">
-            <div class="z-depth-1-half map-container embed-responsive embed-responsive-16by9">
-              <iframe class="embed-responsive-item" frameborder="0" style="border: 0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCtovsQvkIUWlNqtYwXY87gEd4ZSmJEhMw&q=<%= store[:latitude] %>,<%= store[:longitude] %>&zoom=10" allowfullscreen>
+            <div class="card text-white bg-dark mb-6 z-depth-1-half">
+              <iframe class="card-img-top img-fluid" frameborder="0" style="border: 0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCtovsQvkIUWlNqtYwXY87gEd4ZSmJEhMw&q=<%= store[:latitude] %>,<%= store[:longitude] %>&zoom=10" allowfullscreen>
               </iframe>
               <div class="card-body">
                 <h5 class="card-title"><%= chain[:chain_name] %> <%= store[:branch] %></h5>
@@ -21,4 +20,11 @@
     </div>
   </div>
 <% end %>
+
+
+<!--Google map-->
+<div id="map-container" class=" map-container" style="height: 500px">
+  <iframe src="https://maps.google.com/maps?q=manhatan&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0"
+    style="border:0" allowfullscreen></iframe>
+</div>
 
