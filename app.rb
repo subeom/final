@@ -286,7 +286,7 @@ end
 
 def get_stores (param_status_name = "Created")
     if param_status_name == "ALL"
-        return DB["select distinct stores.id as store_id, branch, latitude, longitude, chains.id as chain_id, chain_name from items, chains, status, stores where items.chain_id=chains.id and stores.chain_id = chains.id and status_id=status.id order by stores.id"]
+        return DB["select distinct stores.id as store_id, branch, address, latitude, longitude, chains.id as chain_id, chain_name from chains, stores where stores.chain_id = chains.id order by stores.id"]
     else
         return DB["select distinct stores.id as store_id, branch, latitude, longitude, chains.id as chain_id, chain_name from items, chains, status, stores where items.chain_id=chains.id and stores.chain_id = chains.id and status_id=status.id and ((items.status_changed_at > current_timestamp + '-1 week') or status.status_name=?) order by stores.id", param_status_name]
     end
