@@ -1,19 +1,32 @@
-// Listen for ALL links at the top level of the document. For
-// testing purposes, we're not going to worry about LOCAL vs.
-// EXTERNAL links - we'll just demonstrate the feature.
-$( document ).on(
-	"click",
-    "a",
-    "submit",
-	function( event ){
+if (('standalone' in navigator) && navigator.standalone) {
+    document.addEventListener('click', function(e) {
+      var curnode = e.target
+      while (!(/^(a|html)$/i).test(curnode.nodeName)) {
+        curnode = curnode.parentNode
+      }
+      if ('href' in curnode
+        && (chref = curnode.href).replace(document.location.href, '').indexOf('#')
+        && (!(/^[a-z\+\.\-]+:/i).test(chref)
+        || chref.indexOf(document.location.protocol + '//' + document.location.host) === 0)
+      ) {
+        e.preventDefault()
+        document.location.href = curnode.href
+      }
+    }, false)
 
-		// Stop the default behavior of the browser, which
-		// is to change the URL of the page.
-		event.preventDefault();
-
-		// Manually change the location of the page to stay in
-		// "Standalone" mode and change the URL at the same time.
-		location.href = $( event.target ).attr( "href" );
-
-	}
-);
+    document.addEventListener('submit', function(e) {
+        var curnode = e.target
+        while (!(/^(a|html)$/i).test(curnode.nodeName)) {
+          curnode = curnode.parentNode
+        }
+        if ('href' in curnode
+          && (chref = curnode.href).replace(document.location.href, '').indexOf('#')
+          && (!(/^[a-z\+\.\-]+:/i).test(chref)
+          || chref.indexOf(document.location.protocol + '//' + document.location.host) === 0)
+        ) {
+          e.preventDefault()
+          document.location.href = curnode.href
+        }
+      }, false)
+  }
+  
