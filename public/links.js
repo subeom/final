@@ -3,7 +3,8 @@
 // EXTERNAL links - we'll just demonstrate the feature.
 $( document ).on(
 	"click",
-	"a",
+    "a",
+    "submit",
 	function( event ){
 
 		// Stop the default behavior of the browser, which
