@@ -278,11 +278,11 @@ end
 
 def get_items (param_status_name = "Created")
     if param_status_name == "ALL"
-        return DB["select items.*, status_name, chains.id as chain_id, chain_name, user_name, email, status.status_name from items, status, chains, users where created_by=users.id and chain_id=chains.id and status_id=status.id order by status_changed_at desc"]
-        # return DB["select items.*, u1.user_name as created_by_name, u2.user_name as status_changed_by_name, chains.id as chain_id, chain_name, status.status_name from items join status on items.status_id = status.id join chains on items.chain_id = chains.id join users as u1 on items.created_by = u1.id join users as u2 on items.status_changed_by = u2.id order by status_changed_at desc"]
+        #return DB["select items.*, status_name, chains.id as chain_id, chain_name, user_name, email, status.status_name from items, status, chains, users where created_by=users.id and chain_id=chains.id and status_id=status.id order by status_changed_at desc"]
+        return DB["select items.*, u1.user_name as created_by_name, u2.user_name as status_changed_by_name, chains.id as chain_id, chain_name, status.status_name from items join status on items.status_id = status.id join chains on items.chain_id = chains.id join users as u1 on items.created_by = u1.id join users as u2 on items.status_changed_by = u2.id order by status_changed_at desc"]
     else
-        return DB["select items.*, status_name, chains.id as chain_id, chain_name, user_name, email from items, status, chains, users where created_by=users.id and chain_id=chains.id and status_id=status.id and ((items.status_changed_at > current_timestamp + '-1 week') or status.status_name=?) order by items.id", param_status_name]
-        #return DB["select items.*, u1.user_name as created_by_name, u2.user_name as status_changed_by_name, chain_name, status.status_name from items join status on items.status_id = status.id join chains on items.chain_id = chains.id join users as u1 on items.created_by = u1.id join users as u2 on items.status_changed_by = u2.id where ((items.status_changed_at > current_timestamp + '-1 week') or status.status_name=?) order by status_id, items.id", param_status_name]
+        #return DB["select items.*, status_name, chains.id as chain_id, chain_name, user_name, email from items, status, chains, users where created_by=users.id and chain_id=chains.id and status_id=status.id and ((items.status_changed_at > current_timestamp + '-1 week') or status.status_name=?) order by items.id", param_status_name]
+        return DB["select items.*, u1.user_name as created_by_name, u2.user_name as status_changed_by_name, chain_name, status.status_name from items join status on items.status_id = status.id join chains on items.chain_id = chains.id join users as u1 on items.created_by = u1.id join users as u2 on items.status_changed_by = u2.id where ((items.status_changed_at > current_timestamp + '-1 week') or status.status_name=?) order by status_id, items.id", param_status_name]
     end
 end
 
